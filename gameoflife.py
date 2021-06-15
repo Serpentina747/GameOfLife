@@ -1,7 +1,6 @@
 import numpy as np
 import pygame
 import time
-import sys
 
 # Compute the total value of alive neighbours of a determinate cell
 def getAliveNeighbours(gameState, x, y, width_cells_number, height_cells_number):
@@ -25,7 +24,6 @@ def  evaluteCell(gameState, x, y):
 pygame.init() # Initialize all pygame modules
 
 running = True
-
 width_cells_number  = int(input("Enter number of cells in a row: ")) # Number of cells in the total height of the screen
 height_cells_number = int(input("Enter number of cells in a column: ")) # Number of cells in the total width of the screen
 
@@ -51,10 +49,14 @@ gameState[22, 23] = 1
 gameState[21, 23] = 1
 gameState[20, 23] = 1
 while running:
-    
+
     newGameState = np.copy(gameState)
     screen.fill(background)
-    time.sleep(0.1)
+    time.sleep(0.05)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:           # If quit event is activated, stop the program
+            running = False
+            
     for x in range(0, height_cells_number):             # Iterate each row
         for y in range(0, width_cells_number):          # Iterate each column in a row
                 
@@ -85,4 +87,6 @@ while running:
     # Display it
     pygame.display.flip()
 
-
+pygame.display.quit()
+pygame.quit()
+exit()
